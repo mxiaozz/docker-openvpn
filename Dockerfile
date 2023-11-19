@@ -1,13 +1,14 @@
 # Original credit: https://github.com/jpetazzo/dockvpn
 
 # Smallest base image
-FROM alpine:latest
+FROM alpine:3.17.5
 
 LABEL maintainer="Kyle Manna <kyle@kylemanna.com>"
 
+ADD repositories /etc/apk/repositories
+
 # Testing: pamtester
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories && \
-    apk add --update openvpn iptables bash easy-rsa openvpn-auth-pam google-authenticator pamtester libqrencode && \
+RUN apk add --update --no-cache --allow-untrusted openvpn iptables bash easy-rsa openvpn-auth-pam google-authenticator pamtester libqrencode pam_sqlite3 && \
     ln -s /usr/share/easy-rsa/easyrsa /usr/local/bin && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
 
