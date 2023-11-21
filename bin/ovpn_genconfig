@@ -397,11 +397,11 @@ if [ ${#OVPN_EXTRA_SERVER_CONFIG[@]} -gt 0 ]; then
   cat $TMP_EXTRA_CONFIGFILE >> "$conf"
 fi
 
-echo "\n" >> "$conf"
+echo -e "\n### monitor" >> "$conf"
 echo "script-security 3" >> "$conf"
-echo "auth-user-pass-verify /user/local/bin/checkname.sh via-env" >> "$conf"
-echo "client-connect /user/local/bin/stats.sh" >> "$conf"
-echo "client-disconnect /user/local/bin/stats.sh" >> "$conf"
+echo "auth-user-pass-verify /usr/local/bin/checkname.sh via-env" >> "$conf"
+echo "client-connect /usr/local/bin/stats.sh" >> "$conf"
+echo "client-disconnect /usr/local/bin/stats.sh" >> "$conf"
 
 set +e
 
