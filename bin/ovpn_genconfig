@@ -416,3 +416,6 @@ if diff -q "${bak:-}" "$conf" 2>/dev/null; then
 fi
 
 echo "Successfully generated config"
+
+# nobody read/write
+chmod 777 $OPENVPN
