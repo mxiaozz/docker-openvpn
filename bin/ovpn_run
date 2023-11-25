@@ -101,5 +101,21 @@ if [ $? = 0 ]; then
     fi
 fi
 
+# chmod 777 sqlite3.db
+# chmod 777 /etc/openvpn
+if [ -z "$OPENVPN" ]; then
+    export OPENVPN="/etc/openvpn"
+fi
+db_path="$OPENVPN/sqlite3.db"
+
+attr=`ls -ld1 $OPENVPN | awk '{print $1}'`
+if [ "$attr" != "drwxrwxrwx" ]; then
+    chmod 777 $OPENVPN
+fi
+attr=`ls -l1 $db_path | awk '{print $1}'`
+if [ "$attr" != "-rwxrwxrwx" ]; then
+    chmod 777 $db_path
+fi
+
 echo "Running 'openvpn ${ARGS[@]} ${USER_ARGS[@]}'"
 exec openvpn ${ARGS[@]} ${USER_ARGS[@]}
