@@ -4,7 +4,19 @@ log_date=`date +"%Y-%m-%d %H:%M:%S"`
 
 # chmod 777 sqlite3.db
 # chmod 777 /etc/openvpn
-db_path="/etc/openvpn/sqlite3.db"
+if [ -z "$OPENVPN" ]; then
+    export OPENVPN="/etc/openvpn"
+fi
+db_path="$OPENVPN/sqlite3.db"
+
+attr=`ls -ld1 $OPENVPN | awk '{print $1}'`
+if [ "$attr" != "drwxrwxrwx" ]; then
+    chmod 777 $OPENVPN
+fi
+attr=`ls -l1 $db_path | awk '{print $1}'`
+if [ "$attr" != "-rwxrwxrwx" ]; then
+    chmod 777 $db_path
+fi
 
 sql_exec() {
     rst=`echo $1 | sqlite3 $db_path`
