@@ -402,6 +402,7 @@ echo "script-security 3" >> "$conf"
 echo "auth-user-pass-verify /usr/local/bin/checkname.sh via-env" >> "$conf"
 echo "client-connect /usr/local/bin/stats.sh" >> "$conf"
 echo "client-disconnect /usr/local/bin/stats.sh" >> "$conf"
+echo "management 127.0.0.1 8989" >> "$conf"
 
 set +e
 
