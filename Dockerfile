@@ -32,4 +32,4 @@ RUN chmod a+x /usr/local/bin/*
 # Add support for OTP authentication using a PAM module
 ADD ./otp/openvpn /etc/pam.d/
 
-ADD pam_sqlite3 /etc/pam_sqlite3
+ADD pam_sqlite3.conf /etc/pam_sqlite3.conf
