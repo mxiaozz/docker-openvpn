@@ -169,7 +169,7 @@ OVPN_SERVER_URL=''
 OVPN_TLS_CIPHER=''
 
 # Import existing configuration if present
-[ -r "$OVPN_ENV" ] && source "$OVPN_ENV"
+# [ -r "$OVPN_ENV" ] && source "$OVPN_ENV"
 
 # Parse arguments
 while getopts ":a:e:E:C:T:r:s:du:bcp:n:k:DNm:f:tz2" opt; do
@@ -293,7 +293,8 @@ set -u
 
 # Preserve config
 if [ -f "$OVPN_ENV" ]; then
-    bak_env=$OVPN_ENV.$(date +%s).bak
+    # bak_env=$OVPN_ENV.$(date +%s).bak
+    bak_env=$OVPN_ENV.bak
     echo "Backing up $OVPN_ENV -> $bak_env"
     mv "$OVPN_ENV" "$bak_env"
 fi
@@ -305,7 +306,8 @@ done
 
 conf=${OPENVPN:-}/openvpn.conf
 if [ -f "$conf" ]; then
-    bak=$conf.$(date +%s).bak
+    # bak=$conf.$(date +%s).bak
+    bak=$conf.bak
     echo "Backing up $conf -> $bak"
     mv "$conf" "$bak"
 fi
