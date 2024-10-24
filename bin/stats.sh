@@ -18,6 +18,11 @@ sql_exec() {
 }
 
 if [ -f "$db_path" ]; then
+    # sqlite3 时间为UTC
+    t1=`date -d "$log_date" +%s`
+    t2=`expr $t1 - 28800`
+    log_date=`date -d @$t2 "+%Y-%m-%d %H:%M:%S"`
+
     if [ -z "$bytes_received" ]; then
         sql_exec "insert into sys_logininfor(user_name, ipaddr, login_location, browser, os, status, msg, login_time) values('$username', '$untrusted_ip', 'openvpn', '$ifconfig_pool_remote_ip', '$ifconfig_pool_local_ip', '0', 'connected', '$log_date');"
     else
