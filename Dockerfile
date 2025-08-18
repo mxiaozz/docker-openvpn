@@ -5,10 +5,10 @@ FROM alpine:3.20.2
 
 LABEL maintainer="Kyle Manna <kyle@kylemanna.com>"
 
-ADD repositories /etc/apk/repositories
-
 # Testing: pamtester
-RUN apk add --update --no-cache --allow-untrusted openvpn iptables bash easy-rsa openvpn-auth-pam google-authenticator pamtester libqrencode pam_sqlite3 sqlite tzdata && \
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community/" >> /etc/apk/repositories && \
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories && \
+    apk add --update --no-cache --allow-untrusted openvpn iptables bash easy-rsa openvpn-auth-pam google-authenticator pamtester libqrencode pam_sqlite3 sqlite tzdata && \
     ln -s /usr/share/easy-rsa/easyrsa /usr/local/bin && \
     ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
