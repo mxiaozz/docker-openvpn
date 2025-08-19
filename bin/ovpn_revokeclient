@@ -29,11 +29,21 @@ if [ ! -f "$EASYRSA_PKI/private/${cn}.key" ]; then
 fi
 
 revoke_client_certificate(){
-    easyrsa revoke "$1"
+    easyrsa revoke-issued "$1"
     echo "Generating the Certificate Revocation List :"
     easyrsa gen-crl
     cp -f "$EASYRSA_PKI/crl.pem" "$OPENVPN/crl.pem"
     chmod 644 "$OPENVPN/crl.pem"
+
+    keyfile="$EASYRSA_PKI/private/${cn}.key"
+    if [ -f "$keyfile" ]; then
+        rm -f $keyfile
+    fi
+
+    reqfile="$EASYRSA_PKI/reqs/${cn}.req"
+    if [ -f "$reqfile" ]; then
+        rm -f $reqfile
+    fi
 }
 
 revoke_client_certificate "$cn"
